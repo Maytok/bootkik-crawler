@@ -17,7 +17,7 @@ app.get('*', async (req, res) => {
         const local_url = req.originalUrl;
         const request_url = req.query.page
         console.log(request_url);
-        await page.goto(local_url, {
+        await page.goto(request_url, {
             waitUntil: "networkidle0",
         });
 
