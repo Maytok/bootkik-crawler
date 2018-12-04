@@ -14,9 +14,7 @@ app.get('*', async (req, res) => {
         // we need to override the headless Chrome user agent since its default one is still considered as "bot"
         await page.setUserAgent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36');
 
-        const request_url = req.query.page;
         const origin_url = req.originalUrl;
-        console.log('request_url' + request_url);
         console.log('origin_url' + origin_url);
         await page.goto('https://test.bootkik.com' + origin_url, {
             waitUntil: "networkidle0",
