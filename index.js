@@ -14,10 +14,9 @@ app.get('*', async (req, res) => {
         // we need to override the headless Chrome user agent since its default one is still considered as "bot"
         await page.setUserAgent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36');
 
-        const local_url = req.originalUrl;
         const request_url = req.query.page
-        console.log(local_url);
-        await page.goto(local_url, {
+        console.log(request_url);
+        await page.goto(request_url, {
             waitUntil: "networkidle0",
         });
 
