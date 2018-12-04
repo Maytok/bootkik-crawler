@@ -1,16 +1,8 @@
 const express = require('express');
 const app = express();
 const puppeteer = require('puppeteer');
-const ua = require("useragent");
 
-function isBot(userAgent) {
-    const agent = ua.is(userAgent);
-    return !agent.webkit && !agent.opera && !agent.ie &&
-        !agent.chrome && !agent.safari && !agent.mobile_safari &&
-        !agent.firefox && !agent.mozilla && !agent.android;
-}
-
-const react_build_dir = "../build/"; // this variable refers to directory where our client-side React is built
+const react_build_dir = "/home/ubuntu/test_bootkik_com/build/"; // this variable refers to directory where our client-side React is built
 app.use(react_build_dir); // this is to allow browser download the static files of the React app (CSS, JS, images).
 
 const port = 3002;
