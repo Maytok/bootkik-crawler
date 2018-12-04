@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const puppeteer = require('puppeteer');
 
-const react_build_dir = "/home/ubuntu/test_bootkik_com/build/"; // this variable refers to directory where our client-side React is built
-app.use(react_build_dir); // this is to allow browser download the static files of the React app (CSS, JS, images).
+//const react_build_dir = "/home/ubuntu/test_bootkik_com/build/"; // this variable refers to directory where our client-side React is built
+//app.use(react_build_dir); // this is to allow browser download the static files of the React app (CSS, JS, images).
 
 const port = 3002;
 app.get('*', async (req, res) => {
