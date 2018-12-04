@@ -16,9 +16,9 @@ app.get('*', async (req, res) => {
 
         const request_url = req.query.page;
         const origin_url = req.originalUrl;
-        console.log(request_url);
-        console.log(origin_url);
-        await page.goto(request_url, {
+        console.log('request_url' + request_url);
+        console.log('origin_url' + origin_url);
+        await page.goto('https://test.bootkik.com' + origin_url, {
             waitUntil: "networkidle0",
         });
 
