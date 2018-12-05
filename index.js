@@ -25,7 +25,7 @@ app.get('*', async (req, res) => {
         console.log('Lets go to search if exists: ', cached_file_path);
         
         if (fs.existsSync(cached_file_path)) {
-            let file_content = fs.readFileSync('DATA', 'utf8');
+            let file_content = fs.readFileSync(cached_file_path, 'utf8');
             console.log("I got a cached file. Sending...")
             res.send(file_content);
         }        
