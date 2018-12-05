@@ -21,7 +21,10 @@ app.get('*', async (req, res) => {
         });
 
         const html = await page.evaluate(() => {
-            return document.documentElement.innerHTML;
+            let browser_response = document.documentElement.innerHTML;
+            browser.disconnect();
+            browser.close();
+            return browser_response;
         });
 
         res.send(html);
