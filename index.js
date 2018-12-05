@@ -5,11 +5,13 @@ const fsPath = require("fs-path");
 var fs = require('fs');
 
 const saveUrlToFile = ({ html = "", pathName = "/", output = "." }) => {
-  console.log('Saving the html file');
+  console.log('Saving the html file. The pathname received is: ', pathName);
   
     const path = pathName == "/"
                 ? `${output}/index.html`
                 : `${output}${pathName}.html`;
+  
+  console.log('The final path is: ', path);
   
     fsPath.writeFile(path, html, err => {
         if (err) {
@@ -30,8 +32,13 @@ app.get('*', async (req, res) => {
 
         const origin_url = req.originalUrl;
         console.log('origin_url: ' + origin_url);
-        
+      
+                
         let cached_file_path = `.${origin_url}.html`;
+      
+      if(cached_file_path.endsWith("/.html")){
+        cached_file_path = cached_file_path.replace("/.html", ".html");
+      }
         console.log('The cached file path is: ', cached_file_path);
         
         if (fs.existsSync(cached_file_path)) {
