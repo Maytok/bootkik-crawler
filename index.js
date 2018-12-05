@@ -4,23 +4,6 @@ const puppeteer = require('puppeteer');
 const fsPath = require("fs-path");
 var fs = require('fs');
 
-const saveUrlToFile = ({ html = "", pathName = "/", output = "." }) => {
-  console.log('Saving the html file. The pathname received is: ', pathName);
-  
-    const path = pathName == "/"
-                ? `${output}/index.html`
-                : `${output}${pathName}.html`;
-  
-  console.log('The final path is: ', path);
-  
-    fsPath.writeFile(path, html, err => {
-        if (err) {
-            throw err;
-        }
-    });
-};
-
-
 const port = 3003;
 app.get('*', async (req, res) => {
     try {
@@ -36,10 +19,10 @@ app.get('*', async (req, res) => {
                 
         let cached_file_path = `.${origin_url}.html`;
       
-      if(cached_file_path.endsWith("/.html")){
-        cached_file_path = cached_file_path.replace("/.html", ".html");
-      }
-        console.log('The cached file path is: ', cached_file_path);
+        if(cached_file_path.endsWith("/.html")){
+          cached_file_path = cached_file_path.replace("/.html", ".html");
+        }
+        console.log('Lets go to search if exists: ', cached_file_path);
         
         if (fs.existsSync(cached_file_path)) {
             let file_content = fs.readFileSync('DATA', 'utf8');
@@ -53,9 +36,13 @@ app.get('*', async (req, res) => {
 
         const html = await page.evaluate(() => {
             return document.documentElement.innerHTML;
-        });
-      
-       saveUrlToFile(html, origin_url, __dirname);
+        });       
+  
+       fsPath.writeFile(cached_file_path, html, err => {
+          if (err) {
+              throw err;
+          }
+      });
         
         await page.close();
         browser.disconnect();
