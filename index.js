@@ -1,9 +1,22 @@
 const express = require('express');
 const app = express();
 const puppeteer = require('puppeteer');
+import fsPath from "fs-path";
+var fs = require('fs');
 
-//const react_build_dir = "/home/ubuntu/test_bootkik_com/build/"; // this variable refers to directory where our client-side React is built
-//app.use(react_build_dir); // this is to allow browser download the static files of the React app (CSS, JS, images).
+const saveUrlToFile = ({ html = "", pathName = "/", output = "." }) => {
+  
+    const path = pathName == "/"
+                ? `${output}/index.html`
+                : `${output}${pathName}.html`;
+  
+    fsPath.writeFile(path, html, err => {
+        if (err) {
+            throw err;
+        }
+    });
+};
+
 
 const port = 3002;
 app.get('*', async (req, res) => {
@@ -15,7 +28,16 @@ app.get('*', async (req, res) => {
         await page.setUserAgent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36');
 
         const origin_url = req.originalUrl;
-        console.log('origin_url' + origin_url);
+        console.log('origin_url: ' + origin_url);
+        
+        let cached_file_path = `.${origin_url}.html`;
+        
+        if (fs.existsSync(cached_file_path)) {
+            let file_content = fs.readFileSync('DATA', 'utf8');
+            console.log("I got a cached file. Sending...")
+            res.send(file_content);
+        }        
+        
         await page.goto('https://test.bootkik.com' + origin_url, {
             waitUntil: "networkidle0",
         });
