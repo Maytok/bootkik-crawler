@@ -5,6 +5,7 @@ const fsPath = require("fs-path");
 var fs = require('fs');
 
 const saveUrlToFile = ({ html = "", pathName = "/", output = "." }) => {
+  console.log('Saving the html file');
   
     const path = pathName == "/"
                 ? `${output}/index.html`
@@ -31,6 +32,7 @@ app.get('*', async (req, res) => {
         console.log('origin_url: ' + origin_url);
         
         let cached_file_path = `.${origin_url}.html`;
+        console.log('The cached file path is: ', cached_file_path);
         
         if (fs.existsSync(cached_file_path)) {
             let file_content = fs.readFileSync('DATA', 'utf8');
