@@ -21,11 +21,11 @@ app.get('*', async (req, res) => {
         });
 
         const html = await page.evaluate(() => {
-            let browser_response = document.documentElement.innerHTML;
-            browser.disconnect();
-            browser.close();
-            return browser_response;
+            return document.documentElement.innerHTML;
         });
+        
+        browser.disconnect();
+        browser.close();
 
         res.send(html);
 
