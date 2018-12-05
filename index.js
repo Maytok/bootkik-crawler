@@ -24,6 +24,7 @@ app.get('*', async (req, res) => {
             return document.documentElement.innerHTML;
         });
         
+        await page.close();
         browser.disconnect();
         browser.close();
 
