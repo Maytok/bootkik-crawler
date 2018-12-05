@@ -18,7 +18,7 @@ const saveUrlToFile = ({ html = "", pathName = "/", output = "." }) => {
 };
 
 
-const port = 3002;
+const port = 3003;
 app.get('*', async (req, res) => {
     try {
         const browser = await puppeteer.launch({headless: true});
@@ -45,6 +45,8 @@ app.get('*', async (req, res) => {
         const html = await page.evaluate(() => {
             return document.documentElement.innerHTML;
         });
+      
+       saveUrlToFile(html, origin_url, __dirname);
         
         await page.close();
         browser.disconnect();
