@@ -28,30 +28,27 @@ app.get('*', async (req, res) => {
             let file_content = fs.readFileSync(cached_file_path, 'utf8');
             console.log("I got a cached file. Sending...")
             res.send(file_content);
-        }        
+        }else{
         
-        await page.goto('https://test.bootkik.com' + origin_url, {
-            waitUntil: "networkidle0",
-        });
+            await page.goto('https://test.bootkik.com' + origin_url, {
+                waitUntil: "networkidle0",
+            });
 
-        const html = await page.evaluate(() => {
-            return document.documentElement.innerHTML;
-        });       
-  
-       fsPath.writeFile(cached_file_path, html, err => {
-          if (err) {
-              throw err;
-          }
-      });
-        
-        await page.close();
-        browser.disconnect();
-        browser.close();
+            const html = await page.evaluate(() => {
+                return document.documentElement.innerHTML;
+            });       
 
-        res.send(html);
+           fsPath.writeFileSync(cached_file_path, html);
+
+            await page.close();
+            browser.disconnect();
+            browser.close();
+
+            res.send(html);        
+        }       
 
         } catch(e) {
-            console.log(e);
+            console.log('I got an error: ', e);       
             res.send("ERROR");
         } finally{
             console.log('FInally reached');
