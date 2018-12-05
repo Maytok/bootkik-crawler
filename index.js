@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const puppeteer = require('puppeteer');
-import fsPath from "fs-path";
+const fsPath = require("fs-path");
 var fs = require('fs');
 
 const saveUrlToFile = ({ html = "", pathName = "/", output = "." }) => {
