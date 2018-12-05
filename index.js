@@ -33,7 +33,7 @@ app.get('*', async (req, res) => {
             console.log(e);
             res.send("ERROR");
         } finally{
-            console.log('FInally reached);
+            console.log('FInally reached');
         }
 
 });
