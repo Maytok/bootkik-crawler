@@ -32,6 +32,8 @@ app.get('*', async (req, res) => {
         } catch(e) {
             console.log(e);
             res.send("ERROR");
+        } finally{
+            console.log('FInally reached);
         }
 
 });
