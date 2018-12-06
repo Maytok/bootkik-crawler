@@ -22,13 +22,13 @@ app.get('*', async (req, res) => {
         if(cached_file_path.endsWith("/.html")){
           cached_file_path = cached_file_path.replace("/.html", ".html");
         }
-        console.log('Lets go to search if exists: ', cached_file_path);
+        //console.log('Lets go to search if exists: ', cached_file_path);
         
-        if (fs.existsSync(cached_file_path)) {
-            let file_content = fs.readFileSync(cached_file_path, 'utf8');
-            console.log("I got a cached file. Sending...")
-            res.send(file_content);
-        }else{
+        //if (fs.existsSync(cached_file_path)) {
+         //   let file_content = fs.readFileSync(cached_file_path, 'utf8');
+           // console.log("I got a cached file. Sending...")
+           // res.send(file_content);
+        //}else{
         
             await page.goto('https://test.bootkik.com' + origin_url, {
                 waitUntil: "networkidle0",
@@ -45,7 +45,7 @@ app.get('*', async (req, res) => {
             browser.close();
 
             res.send(html);        
-        }       
+       // }       
 
         } catch(e) {
             console.log('I got an error: ', e);       
