@@ -8,7 +8,7 @@ const port = 3003;
 app.get('*', async (req, res) => {
     try {
         const origin_url = req.originalUrl;
-        console.log('origin_url: ' + origin_url);
+        console.log('origin_url is : ' + origin_url);
         console.log('The request headers are: ', req.headers)
                 
         let cached_file_path = `.${origin_url}.html`;
