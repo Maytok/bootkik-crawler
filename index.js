@@ -45,12 +45,12 @@ app.get('*', async (req, res) => {
             res.send(html);        
         }       
 
-        } catch(e) {
-            console.log('I got an error: ', e);       
-            res.send("ERROR");
-        } finally{
-            console.log('FInally reached');
-        }
+    } catch(e) {
+        console.log('I got an error: ', e);       
+        res.send("ERROR");
+    } finally{
+        console.log('FInally reached');
+    }
 
 });
 
