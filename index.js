@@ -7,12 +7,6 @@ var fs = require('fs');
 const port = 3003;
 app.get('*', async (req, res) => {
     try {
-        const browser = await puppeteer.launch({headless: true});
-        const page = await browser.newPage();
-            
-        // we need to override the headless Chrome user agent since its default one is still considered as "bot"
-        await page.setUserAgent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36');
-
         const origin_url = req.originalUrl;
         console.log('origin_url: ' + origin_url);
       
@@ -28,7 +22,12 @@ app.get('*', async (req, res) => {
             let file_content = fs.readFileSync(cached_file_path, 'utf8');
             console.log("I got a cached file. Sending...")
             res.send(file_content);
-        }else{        
+        }else{   
+            const browser = await puppeteer.launch({headless: true});
+            const page = await browser.newPage();
+                
+            // we need to override the headless Chrome user agent since its default one is still considered as "bot"
+            await page.setUserAgent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36');     
             await page.goto('https://test.bootkik.com' + origin_url, {
                 waitUntil: "networkidle0",
             });
