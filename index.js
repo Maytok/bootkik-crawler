@@ -20,8 +20,10 @@ app.get('*', async (req, res) => {
         
         if (fs.existsSync(cached_file_path)) {
             console.log("I got a cached file. Sending...")
+            
+            let file_content = fs.readFileSync(cached_file_path, 'utf8');
             res.header("Content-Type", "text/html");
-            res.sendFile(cached_file_path);
+            res.send(file_content);
         }else{   
             const browser = await puppeteer.launch({headless: true});
             const page = await browser.newPage();
